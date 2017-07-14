@@ -2,6 +2,7 @@
 
 from ctypes import *
 from dwfconstants import *
+import PowerSupply
 
 import time,sys
 
@@ -26,10 +27,10 @@ class AD2(object):
 
         self._vposSetOffset = 0.0
         self._vposGetOffset = 0.0
-        self._vnegSetOffset = 0.0
-        self._vnegSetOffset = 0.0
 
-        self.dwf.FDwfAnalogIOChannelNodeSet(self.hdwf,c_int(0),c_int(0),c_double(True)) # enable positive supply
+        self.vpos = PowerSupply.PowerSupply(self.dwf,self.hdwf,0)
+        self.vneg = PowerSupply.PowerSupply(self.dwf,self.hdwf,1)
+
         self.dwf.FDwfAnalogIOChannelNodeSet(self.hdwf,c_int(1),c_int(0),c_double(True)) # enable negative supply
         self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
 
@@ -41,71 +42,6 @@ class AD2(object):
 
     def close(self):
         self.dwf.FDwfDeviceClose(self.hdwf)
-
-
-
-
-    @property
-    def vpos(self):
-        v = c_double()
-        self.dwf.FDwfAnalogIOChannelNodeGet(self.hdwf,c_int(0),c_int(1),byref(v))
-        return v.value + self._vposGetOffset
-
-    @vpos.setter
-    def vpos(self,value):
-        self.dwf.FDwfAnalogIOChannelNodeSet(self.hdwf,c_int(0),c_int(1),c_double(value+self._vposSetOffset))
-
-    @property
-    def vposSetOffset(self):
-        return self._vposSetOffset
-
-    @vposSetOffset.setter
-    def vposSetOffset(self,value):
-        self._vposSetOffset = value
-
-    @property
-    def vposGetOffset(self):
-        return self._vposGetOffset
-
-    @vposGetOffset.setter
-    def vposGetOffset(self,value):
-        self._vposGetOffset = value
-
-
-
-
-
-
-
-
-
-    @property
-    def vneg(self):
-        v = c_double()
-        self.dwf.FDwfAnalogIOChannelNodeGet(self.hdwf,c_int(1),c_int(1),byref(v))
-        return v.value + self._vnegGetOffset
-
-    @vneg.setter
-    def vneg(self,value):
-        self.dwf.FDwfAnalogIOChannelNodeSet(self.hdwf,c_int(1),c_int(1),c_double(value+self._vnegSetOffset))
-
-    @property
-    def vnegSetOffset(self):
-        return self._vnegSetOffset
-
-    @vnegSetOffset.setter
-    def vnegSetOffset(self,value):
-        self._vnegSetOffset = value
-
-    @property
-    def vnegGetOffset(self):
-        return self._vnegGetOffset
-
-    @vnegGetOffset.setter
-    def vnegGetOffset(self,value):
-        self._vnegGetOffset = value
-
-        
 
 if __name__ == "__main__":
     ad = AD2()

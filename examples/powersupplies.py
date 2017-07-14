@@ -6,18 +6,17 @@ import AD2
 
 d = AD2.AD2()
 
-d.vposSetOffset = 0.0007
-d.vposGetOffset = -0.0007
-d.vpos = 1.23
+# these are the offsets for my ad2
+d.vpos.setOffset = 0.0007
+d.vpos.getOffset = -0.0007
+d.vneg.setOffset = 0.0049
+d.vneg.getOffset = 0.1195
 
-d.vnegSetOffset = 0.0049
-d.vnegGetOffset = 0.1195
-d.vneg = -1.23
+d.vpos.voltage = 1.23
+d.vneg.voltage = -1.23
 
-time.sleep(0.5)
-
-print "%8.4f %8.4f %8.4f"%(d.vpos,d.vposSetOffset,d.vposGetOffset)
-print "%8.4f %8.4f %8.4f"%(d.vneg,d.vnegSetOffset,d.vnegGetOffset)
+print "%8.4f %8.4f %8.4f"%(d.vpos.voltage,d.vpos.setOffset,d.vpos.getOffset)
+print "%8.4f %8.4f %8.4f"%(d.vneg.voltage,d.vneg.setOffset,d.vneg.getOffset)
 
 raw_input("\nany key to continue... ")
 
