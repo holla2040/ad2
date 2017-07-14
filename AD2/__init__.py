@@ -2,7 +2,7 @@
 
 from ctypes import *
 from dwfconstants import *
-import PowerSupply
+import PowerSupply, FunctionGenerator
 
 import time,sys
 
@@ -31,7 +31,9 @@ class AD2(object):
         self.vpos = PowerSupply.PowerSupply(self.dwf,self.hdwf,0)
         self.vneg = PowerSupply.PowerSupply(self.dwf,self.hdwf,1)
 
-        self.dwf.FDwfAnalogIOChannelNodeSet(self.hdwf,c_int(1),c_int(0),c_double(True)) # enable negative supply
+        self.fg1 = FunctionGenerator.FunctionGenerator(self.dwf,self.hdwf,0)
+        self.fg2 = FunctionGenerator.FunctionGenerator(self.dwf,self.hdwf,1)
+
         self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
 
     def open(self):
