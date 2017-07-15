@@ -12,10 +12,11 @@ class FunctionGenerator(object):
         self.channel = c_int(channel)
 
         self.dwf.FDwfAnalogOutNodeEnableSet(self.hdwf, self.channel, AnalogOutNodeCarrier, c_bool(True))
-        self.dwf.FDwfAnalogOutNodeFunctionSet(self.hdwf, self.channel, AnalogOutNodeCarrier, funcSine)
+        #self.dwf.FDwfAnalogOutNodeFunctionSet(self.hdwf, self.channel, AnalogOutNodeCarrier, funcSine)
         self.frequency = 0.00
         self.amplitude = 0.00
         self.offset    = 0.00
+        self.function  = funcSine
 
         self.configure()
 
@@ -55,4 +56,13 @@ class FunctionGenerator(object):
         self.dwf.FDwfAnalogOutNodeOffsetSet(self.hdwf,self.channel,AnalogOutNodeCarrier,c_double(value))
         self.configure()
 
+    @property
+    def function(self):
+        v = c_ubyte()
+        self.dwf.FDwfAnalogOutNodeFunctionGet(self.hdwf, self.channel, AnalogOutNodeCarrier, byref(v))
+        return v.value
 
+    @function.setter
+    def function(self,value):
+        self.dwf.FDwfAnalogOutNodeFunctionSet(self.hdwf, self.channel, AnalogOutNodeCarrier, value)
+        self.configure()
