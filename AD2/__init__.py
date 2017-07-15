@@ -2,7 +2,7 @@
 
 from ctypes import *
 from dwfconstants import *
-import PowerSupply, FunctionGenerator, Trigger
+import PowerSupply,FunctionGenerator,Trigger,Oscilloscope
 
 import time,sys
 
@@ -36,7 +36,7 @@ class AD2(object):
 
         self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
 
-        self.trigger = Trigger.Trigger(self.dwf,self.hdwf)
+        self.scope   = Oscilloscope.Oscilloscope(self.dwf,self.hdwf)
 
     def open(self):
         self.dwf.FDwfDeviceOpen(c_int(-1),byref(self.hdwf)) # open the first ad2

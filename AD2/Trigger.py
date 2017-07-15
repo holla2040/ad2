@@ -8,6 +8,8 @@ class Trigger(object):
         self.dwf = dwf
         self.hdwf = hdwf
 
+        self.source = trigsrcDetectorAnalogIn
+
     @property
     def autotimeout(self):
         v = c_double()
