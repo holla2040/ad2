@@ -17,6 +17,23 @@ class Trigger(object):
     def autotimeout(self,value):
         self.dwf.FDwfAnalogInTriggerAutoTimeoutSet(self.hdwf,c_double(value))
 
+    @property
+    def autotimeoutinfo(self):
+        min = c_double()
+        max = c_double()
+        steps = c_int()
+        self.dwf.FDwfAnalogInTriggerAutoTimeoutInfo(self.hdwf,byref(min),byref(max),byref(steps))
+        return {'min':min.value,'max':max.value,'steps':steps.value}
+
+    @property
+    def holdoff(self):
+        v = c_double()
+        self.dwf.FDwfAnalogInTriggerHoldOffGet(self.hdwf,byref(v))
+        return v.value 
+    @holdoff.setter
+    def holdoff(self,value):
+        self.dwf.FDwfAnalogInTriggerHoldOffSet(self.hdwf,c_double(value))
+
     @property #see TRIGSRC
     def source(self):
         v = c_ubyte()
@@ -71,3 +88,29 @@ class Trigger(object):
     def condition(self,value):
         self.dwf.FDwfAnalogInTriggerConditionSet(self.hdwf,value)
 
+    @property
+    def hysteresis(self):
+        v = c_double()
+        self.dwf.FDwfAnalogInTriggerHysteresisGet(self.hdwf,byref(v))
+        return v.value 
+    @hysteresis.setter
+    def hysteresis(self,value):
+        self.dwf.FDwfAnalogInTriggerHysteresisSet(self.hdwf,c_double(value))
+
+    @property #TRIGLEN
+    def lengthcondition(self):
+        v = c_int()
+        self.dwf.FDwfAnalogInTriggerLengthConditionGet(self.hdwf,byref(v))
+        return v
+    @lengthcondition.setter
+    def lengthcondition(self,value):
+        self.dwf.FDwfAnalogInTriggerLengthConditionSet(self.hdwf,value)
+
+    @property
+    def length(self):
+        v = c_double()
+        self.dwf.FDwfAnalogInTriggerLengthGet(self.hdwf,byref(v))
+        return v.value 
+    @length.setter
+    def length(self,value):
+        self.dwf.FDwfAnalogInTriggerLengthSet(self.hdwf,c_double(value))

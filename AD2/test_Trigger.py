@@ -11,12 +11,30 @@ class Test(unittest.TestCase):
     @unittest.skip("autotimeout skipping") 
     def test_autotimeout(self):
         self.ad2.trigger.autotimeout = 1.213
+        print self.ad2.trigger.autotimeout
         # print int(round(self.ad2.trigger.autotimeout*1000))
         self.assertEqual(1213,int(round(self.ad2.trigger.autotimeout*1000)),"trigger autotimeout incorrect")
+
+    def test_holdoff(self):
+        self.ad2.trigger.holdoff = 1.213
+        self.assertEqual(1213,int(round(self.ad2.trigger.holdoff*1000)),"trigger holdoff incorrect")
+
+    def test_hysteresis(self):
+        self.ad2.trigger.hysteresis = 1.213
+        # print int(round(self.ad2.trigger.hysteresis*1000))
+        self.assertEqual(1213,int(round(self.ad2.trigger.hysteresis*1000)),"trigger hysteresis incorrect")
 
     def test_source(self):
         self.ad2.trigger.source = trigsrcAnalogIn
         self.assertEqual(trigsrcAnalogIn.value,(self.ad2.trigger.source).value,"trigger source incorrect")
+
+    def test_lengthcondition(self):
+        self.ad2.trigger.lengthcondition = triglenLess
+        self.assertEqual(triglenLess.value,(self.ad2.trigger.lengthcondition).value,"trigger lengthcondition incorrect")
+
+    def test_length(self):
+        self.ad2.trigger.length = 1.213
+        self.assertEqual(1213,int(round(self.ad2.trigger.length*1000)),"trigger length incorrect")
 
     def test_type(self):
         self.ad2.trigger.type = trigtypeEdge
