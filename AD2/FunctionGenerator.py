@@ -28,7 +28,6 @@ class FunctionGenerator(object):
         v = c_double()
         self.dwf.FDwfAnalogOutNodeFrequencyGet(self.hdwf, self.channel, AnalogOutNodeCarrier, byref(v))
         return v.value
-
     @frequency.setter
     def frequency(self,value):
         self.dwf.FDwfAnalogOutNodeFrequencySet(self.hdwf, self.channel, AnalogOutNodeCarrier, c_double(value))
@@ -39,8 +38,6 @@ class FunctionGenerator(object):
         v = c_double()
         self.dwf.FDwfAnalogOutNodeAmplitudeGet(self.hdwf,self.channel,AnalogOutNodeCarrier,byref(v))
         return v.value
-
-    @amplitude.setter
     def amplitude(self,value):
         self.dwf.FDwfAnalogOutNodeAmplitudeSet(self.hdwf,self.channel,AnalogOutNodeCarrier,c_double(value))
         self.configure()
@@ -50,19 +47,18 @@ class FunctionGenerator(object):
         v = c_double()
         self.dwf.FDwfAnalogOutNodeOffsetGet(self.hdwf,self.channel,AnalogOutNodeCarrier,byref(v))
         return v.value
-
     @offset.setter
     def offset(self,value):
         self.dwf.FDwfAnalogOutNodeOffsetSet(self.hdwf,self.channel,AnalogOutNodeCarrier,c_double(value))
         self.configure()
 
-    @property
+    @property #see FUNC
     def function(self):
         v = c_ubyte()
         self.dwf.FDwfAnalogOutNodeFunctionGet(self.hdwf, self.channel, AnalogOutNodeCarrier, byref(v))
-        return v.value
-
+        return v
     @function.setter
     def function(self,value):
         self.dwf.FDwfAnalogOutNodeFunctionSet(self.hdwf, self.channel, AnalogOutNodeCarrier, value)
         self.configure()
+

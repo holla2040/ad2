@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys,time
+import sys
 sys.path.append('..')
 import AD2
 

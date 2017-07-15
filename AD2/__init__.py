@@ -2,7 +2,7 @@
 
 from ctypes import *
 from dwfconstants import *
-import PowerSupply, FunctionGenerator
+import PowerSupply, FunctionGenerator, Trigger
 
 import time,sys
 
@@ -35,6 +35,8 @@ class AD2(object):
         self.fg2 = FunctionGenerator.FunctionGenerator(self.dwf,self.hdwf,1)
 
         self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
+
+        self.trigger = Trigger.Trigger(self.dwf,self.hdwf)
 
     def open(self):
         self.dwf.FDwfDeviceOpen(c_int(-1),byref(self.hdwf)) # open the first ad2

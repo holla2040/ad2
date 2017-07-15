@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys,time
+import sys
 sys.path.append('..')
 import AD2
 from AD2.dwfconstants import *
@@ -17,8 +17,8 @@ d.fg2.amplitude = 2.23
 d.fg2.offset    = -2.23
 d.fg2.function  = funcSquare
 
-print "%10.2f %10.2f %10.2f %d"%(d.fg1.frequency,d.fg1.amplitude,d.fg1.offset,d.fg1.function)
-print "%10.2f %10.2f %10.2f %d"%(d.fg2.frequency,d.fg2.amplitude,d.fg2.offset,d.fg2.function)
+print "%10.2f %10.2f %10.2f %d"%(d.fg1.frequency,d.fg1.amplitude,d.fg1.offset,d.fg1.function.value)
+print "%10.2f %10.2f %10.2f %d"%(d.fg2.frequency,d.fg2.amplitude,d.fg2.offset,d.fg2.function.value)
 
 raw_input("\nany key to continue... ")
 
