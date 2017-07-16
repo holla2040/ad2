@@ -28,8 +28,8 @@ class Oscilloscope(object):
         self.dwf.FDwfAnalogInConfigure(self.hdwf,c_bool(True),c_bool(False))
 
     def single(self):
-        self.dwf.FDwfAnalogInAcquisitionModeSet(self.hdwf,acqmodeSingle)
-        # self.trigger.autotimeout = 0
+        self.trigger.autotimeout = 0
+        #self.dwf.FDwfAnalogInAcquisitionModeSet(self.hdwf,acqmodeSingle)
         self.dwf.FDwfAnalogInConfigure(self.hdwf,c_bool(False),c_bool(True))
 
     def triggered(self): # tba

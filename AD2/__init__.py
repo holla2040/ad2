@@ -34,9 +34,10 @@ class AD2(object):
         self.fg1 = FunctionGenerator.FunctionGenerator(self.dwf,self.hdwf,0)
         self.fg2 = FunctionGenerator.FunctionGenerator(self.dwf,self.hdwf,1)
 
-        self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
-
         self.scope   = Oscilloscope.Oscilloscope(self.dwf,self.hdwf)
+
+        self.dwf.FDwfAnalogIOEnableSet(self.hdwf,c_int(True))
+        self.dwf.FDwfDeviceAutoConfigureSet(self.hdwf,c_int(True))
 
     def open(self):
         self.dwf.FDwfDeviceOpen(c_int(-1),byref(self.hdwf)) # open the first ad2

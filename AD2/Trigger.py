@@ -116,3 +116,19 @@ class Trigger(object):
     @length.setter
     def length(self,value):
         self.dwf.FDwfAnalogInTriggerLengthSet(self.hdwf,c_double(value))
+
+    @property
+    def position(self):
+        v = c_double()
+        self.dwf.FDwfAnalogInTriggerPositionGet(self.hdwf,byref(v))
+        return v.value 
+    @position.setter
+    def position(self,value):
+        self.dwf.FDwfAnalogInTriggerPositionSet(self.hdwf,c_double(value))
+    @property
+    def positioninfo(self):
+        min = c_double()
+        max = c_double()
+        steps = c_int()
+        self.dwf.FDwfAnalogInTriggerPositionInfo(self.hdwf,byref(min),byref(max),byref(steps))
+        return {'min':min.value,'max':max.value,'steps':steps.value}
